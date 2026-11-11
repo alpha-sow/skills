@@ -1,0 +1,16 @@
+{
+  "name": "alpha-sow-skills",
+  "version": "0.0.1",
+  "description": "Catalogue de skills pour agents IA.",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alpha-sow/skills.git"
+  },
+  "scripts": {
+    "release": "semantic-release"
+  },
+  "devDependencies": {
+    "semantic-release": "25.0.9"
+  }
+}
