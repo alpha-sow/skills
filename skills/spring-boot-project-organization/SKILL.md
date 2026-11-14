@@ -1,22 +1,22 @@
 ---
 name: spring-boot-project-organization
-description: Explique, propose ou adapte l’organisation des packages d’un projet Java Spring Boot, en théorie ou dans un dépôt existant. À utiliser pour ajouter une nouvelle fonctionnalité au bon endroit, définir une arborescence par module métier, répartir les couches Domain, Application et Infrastructure, choisir entre DDD, Clean Architecture et ports et adaptateurs (architecture hexagonale), vérifier le sens des dépendances ou prévoir les tests d’une réorganisation.
+description: Guide la définition de l’architecture d’un projet Java Spring Boot et l’ajout de nouvelles fonctionnalités en appliquant conjointement DDD, architecture hexagonale (ports et adaptateurs) et Clean Architecture. À utiliser pour délimiter les modules métier, modéliser les invariants, répartir les responsabilités entre Domain, Application et Infrastructure, définir les ports et adaptateurs, vérifier les dépendances et prévoir les tests, sans abstractions inutiles ni rupture des contrats et comportements d’un dépôt existant.
 ---
 
 # Organiser un projet Java Spring Boot
 
 ## Démarche
 
-1. **Cadrer.** Explication, arborescence cible, ajout de fonctionnalité ou adaptation d’un dépôt existant ? Dans un dépôt, pars de ses fichiers et conventions, et identifie ce qu’il faut préserver : contrats publics, validations, sécurité, comportements.
-2. **Rester proportionné.** N’impose ni DDD, ni Clean Architecture, ni ports et adaptateurs. Ajoute une couche ou une abstraction seulement si elle clarifie une frontière utile, et nomme son coût. Ne cite que les concepts qui justifient un choix.
-3. **Placer par domaine.** Modules métier d’abord, puis seulement les couches utilisées. Une nouvelle fonctionnalité rejoint le module existant qu’elle concerne et suit ses conventions ; crée un module seulement pour un domaine distinct.
+1. **Cadrer.** Architecture cible, ajout de fonctionnalité ou adaptation d’un dépôt existant ? Identifie les besoins métier, les invariants et les interactions externes concernés. Dans un dépôt, pars de ses fichiers et conventions, et identifie ce qu’il faut préserver : contrats publics, validations, sécurité, comportements.
+2. **Appliquer les trois approches sans surdimensionner.** Prends DDD, l’architecture hexagonale et Clean Architecture comme cible commune : modèle métier explicite, cœur indépendant et interactions externes par ports et adaptateurs. Ajoute une couche ou une abstraction seulement si elle clarifie une frontière utile, et nomme son coût. Ne duplique pas les concepts communs aux trois approches. Si l’existant s’en écarte, explicite les écarts et propose une adaptation ciblée sans refonte non demandée ni rupture de contrat ou de comportement. Si la cible et les contraintes existantes sont incompatibles, expose le conflit et les compromis ; demande une décision utilisateur si le choix affecte significativement l’architecture ou les contrats, sans dégrader silencieusement les contraintes existantes.
+3. **Placer par domaine.** Modules métier d’abord, puis seulement les couches utilisées. Une nouvelle fonctionnalité rejoint le module existant qu’elle concerne et suit ses conventions compatibles avec la cible ; crée un module seulement pour un domaine distinct. Définis ses invariants dans le domaine, son orchestration dans un cas d’utilisation, et ses échanges externes dans les ports et adaptateurs nécessaires.
 4. **Illustrer un flux.** Suis une requête de l’adaptateur entrant (par exemple REST) au cas d’utilisation et au domaine ; ajoute un appel sortant seulement s’il est nécessaire. Distingue le flux d’exécution, qui peut aller vers un adaptateur, des dépendances du code, toujours dirigées vers le cœur.
 5. **Tester.** Prévois des tests ciblés sur les frontières touchées. Si tu implémentes, exécute les vérifications disponibles et rapporte résultats et limites.
 6. **Livrer honnêtement.** Sépare l’existant observé de tes recommandations ; n’invente ni version, ni module, ni test. Termine par les compromis et ce qui reste à décider.
 
 ## Les trois approches
 
-Elles sont complémentaires et se recouvrent sur l’isolation du métier ; les combiner n’exige ni couches dupliquées ni interfaces multipliées.
+Elles constituent ensemble l’architecture cible et se recouvrent sur l’isolation du métier ; les combiner n’exige ni couches dupliquées ni interfaces multipliées.
 
 | Approche | Question principale | Responsabilité |
 | --- | --- | --- |
@@ -81,4 +81,4 @@ Stratégie par couche, sans affirmer leur existence dans un dépôt ni imposer d
 
 ## Exemple facultatif
 
-[exemples-spring-boot.md](exemples-spring-boot.md) montre un exemple générique commenté. Il ne remplace pas les principes ci-dessus et n’impose ni domaine métier, ni packages, ni architecture.
+[exemples-spring-boot.md](exemples-spring-boot.md) montre un exemple générique commenté. Il ne remplace pas les principes ci-dessus et n’impose ni domaine métier, ni arborescence exacte.
